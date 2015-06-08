@@ -72,6 +72,12 @@ angular.module('todo', ['ionic'])
         scope: $scope
       });
 
+      $ionicModal.fromTemplateUrl('edit-task.html', function(modal){
+        $scope.editModal = modal;
+      }, {
+        scope: $scope
+      })
+
       $scope.createTask = function(task) {
         if(!$scope.activeProject || !task) {
           return;
@@ -95,8 +101,24 @@ angular.module('todo', ['ionic'])
         $scope.taskModal.show();
       };
 
+      $scope.openEditTask = function (task) {
+        $scope.editModal.show();
+        $scope.editModal.task.title = task.title;
+        $scope.changedIndex = $scope.activeProject.tasks.indexOf(task);
+      }
+
+      $scope.editTask = function (task) {
+        $scope.activeProject.tasks.splice($scope.changedIndex, 1);
+        $scope.activeProject.tasks.splice($scope.changedIndex, 0, task);
+        $scope.closeEditTask();
+      }
+
       $scope.closeNewTask = function() {
         $scope.taskModal.hide();
+      }
+
+      $scope.closeEditTask = function() {
+        $scope.editModal.hide();
       }
 
       $scope.toggleProjects = function() {

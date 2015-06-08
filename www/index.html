@@ -27,7 +27,7 @@
     </ion-header-bar>
     <ion-content>
       <ion-list class="list">
-        <ion-item class="item item-button-right" ng-repeat="task in activeProject.tasks">
+        <ion-item class="item item-button-right" ng-repeat="task in activeProject.tasks" ng-click="openEditTask(task)">
           {{task.title}}
           <button class="button button-positive" ng-click="deleteTask(task)">
             <i class="icon ion-ios-trash"></i>
@@ -66,6 +66,36 @@
     </div>
 
   </script>
+
+<script id="edit-task.html" type="text/ng-template">
+
+  <div class="modal">
+
+
+    <ion-header-bar class="bar-secondary">
+      <h1 class="title">Edit Task</h1>
+      <button class="button button-clear button-bar-inline" ng-click="closeEditTask()">Cancel</button>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content>
+
+      <form ng-submit="editTask(task)">
+        <div class="list">
+          <label class="item item-input">
+            <input type="text" ng-model="task.title">
+          </label>
+        </div>
+        <div class="padding">
+          <button type="submit" class="button button-block button-positive">Edit Task</button>
+        </div>
+      </form>
+
+    </ion-content>
+
+  </div>
+
+</script>
 
   <!-- Left menu -->
   <ion-side-menu side="left">
