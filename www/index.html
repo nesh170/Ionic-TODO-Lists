@@ -27,11 +27,10 @@
     </ion-header-bar>
     <ion-content>
       <ion-list class="list">
-        <ion-item class="item item-button-right" ng-repeat="task in activeProject.tasks" ng-click="openEditTask(task)">
+        <ion-item class="item item-button-right" ng-repeat="task in activeProject.tasks">
           {{task.title}}
-          <button class="button button-positive" ng-click="deleteTask(task)">
-            <i class="icon ion-ios-trash"></i>
-          </button>
+          <ion-option-button class="button-stable" ng-click="openEditTask(task)">Edit</ion-option-button>
+          <ion-option-button class="button-assertive" ng-click="deleteTask(task)">Delete</ion-option-button>
         </ion-item>
       </ion-list>
     </ion-content>

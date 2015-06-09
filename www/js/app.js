@@ -83,7 +83,8 @@ angular.module('todo', ['ionic'])
           return;
         }
         $scope.activeProject.tasks.push({
-          title: task.title
+          title: task.title,
+          id: new Date().getUTCMilliseconds()
         });
         $scope.taskModal.hide();
 
@@ -94,22 +95,25 @@ angular.module('todo', ['ionic'])
       };
 
       $scope.deleteTask = function (task) {
-        $scope.activeProject.tasks.splice(task, 1);
+        $scope.activeProject.tasks.splice($scope.activeProject.tasks.indexOf(task),1);
       }
 
       $scope.newTask = function() {
         $scope.taskModal.show();
       };
 
-      $scope.openEditTask = function (task) {
+      $scope.openEditTask = function (taskEditted) {
+        $scope.changedIndex = $scope.activeProject.tasks.indexOf(taskEditted);
         $scope.editModal.show();
-        $scope.editModal.task.title = task.title;
-        $scope.changedIndex = $scope.activeProject.tasks.indexOf(task);
+        
+        //$scope.editModal.task.title = taskEditted.title;
+
       }
 
       $scope.editTask = function (task) {
+        console.log($scope.changedIndex + "Number Edit");
         $scope.activeProject.tasks.splice($scope.changedIndex, 1);
-        $scope.activeProject.tasks.splice($scope.changedIndex, 0, task);
+        $scope.activeProject.tasks.splice($scope.changedIndex, 0, {title: task.title });
         $scope.closeEditTask();
       }
 
